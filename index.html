@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasament Cluburi – SASORI CUP</title>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background: linear-gradient(135deg, #0d0d0d, #2b2b2b);
+          color: #ffffff;
+          min-height: 100vh;
+          padding: 80px 20px 40px;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+        }
+
+        /* BUTON FIX SUS */
+        #toggle-btn {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          padding: 15px;
+          background: #181818;
+          color: #ffffff;
+          font-size: 1.2rem;
+          font-weight: 600;
+          border: none;
+          cursor: pointer;
+          z-index: 9999;
+          border-bottom: 2px solid #444;
+        }
+        #toggle-btn:hover {
+          background: #222;
+        }
+
+        .container {
+          width: 100%;
+          max-width: 900px;
+          text-align: center;
+        }
+
+        h1 {
+          font-size: 2.5rem;
+          margin-bottom: 30px;
+          color: #e5e5e5;
+          text-shadow: 1px 1px 4px black;
+        }
+
+        .club-list {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+        }
+
+        .club-card {
+          background: #1a1a1a;
+          border: 1px solid #555;
+          border-radius: 14px;
+          padding: 20px;
+          text-align: center;
+          transition: 0.3s ease;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        }
+        .club-card:hover {
+          background: #262626;
+          transform: scale(1.02);
+          box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .club-name {
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: white;
+          letter-spacing: 1px;
+        }
+
+        .club-points {
+          font-size: 1rem;
+          color: #d9d9d9;
+          margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+          h1 { font-size: 2rem; }
+          .club-card { padding: 15px; }
+          #toggle-btn { font-size: 1rem; padding: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<button id="toggle-btn">TRADITIONAL</button>
+
+<div class="container">
+    <h1>Clasamentul pe cluburi – SASORI CUP</h1>
+
+    <ul id="club-list" class="club-list"></ul>
+    <ul id="club-list-2" class="club-list" style="display:none;"></ul>
+</div>
+
+<script>
+    const clubs = [
+      { name: "ATEMI KARATE", points: 7 },
+      { name: "BLUE LIONS BUCURESTI", points: 89 },
+      { name: "CS GIROC CHISODA", points: 41 },
+      { name: "FORTUNA KARATE BUCURESTI", points: 36 },
+      { name: "KAMI-DO", points: 5 },
+      { name: "MASAKI FAGARAS", points: 182 },
+      { name: "PHOENYX SUNRISE BUCURESTI", points: 64 },
+      { name: "SAIKOU BRASOV", points: 114 },
+      { name: "SANTOKI PIATRA NEAMT", points: 55 },
+      { name: "SASORI", points: 590 },
+      { name: "SHIRO WASHI PLOIESTI", points: 79 },
+      { name: "VIKINGII ALBI TARGU JIU", points: 70 },
+      { name: "VIROMET VICTORIA", points: 162 }
+    ];
+
+    const clubs2 = [
+      { name: "ISSHIN DOJO", points: 147 },
+      { name: "SASORI", points: 92 },
+      { name: "SHIRO WASHI PLOIESTI", points: 58 },
+      { name: "BLUE LIONS BUCURESTI", points: 55 },
+      { name: "KAMI-DO", points: 3 },
+    ];
+
+    const list1 = document.getElementById("club-list");
+    const list2El = document.getElementById("club-list-2");
+    const toggleBtn = document.getElementById("toggle-btn");
+
+   function renderList(listElement, data) {
+  listElement.innerHTML = "";
+  data.sort((a,b) => b.points - a.points);
+
+  data.forEach(club => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <div class="club-card">
+        <div class="club-name">${club.name}</div>
+        <div class="club-points">${club.points} puncte</div>
+      </div>`;
+
+    listElement.appendChild(li);
+  });
+}
+
+
+    renderList(list1, clubs, true);
+    renderList(list2El, clubs2, false);
+
+    toggleBtn.addEventListener("click", () => {
+      if (list2El.style.display === "none") {
+        list2El.style.display = "flex";
+        list1.style.display = "none";
+        toggleBtn.textContent = "SPORT";
+      } else {
+        list2El.style.display = "none";
+        list1.style.display = "flex";
+        toggleBtn.textContent = "TRADITIONAL";
+      }
+    });
+</script>
+
+</body>
+</html>
